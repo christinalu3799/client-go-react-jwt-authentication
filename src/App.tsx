@@ -5,20 +5,17 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <main className="form-signin">
+            <form>
+                <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+
+                <input type="email" className="form-control" placeholder="name@example.com"/>
+
+                <input type="password" className="form-control" placeholder="Password"/>
+                
+                <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            </form>
+        </main>
     </div>
   );
 }
