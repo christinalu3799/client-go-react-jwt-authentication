@@ -1,5 +1,4 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Home from './pages/Home';
 import Nav from './components/Nav';
@@ -8,20 +7,34 @@ import Register from './pages/Register';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
-  return (
-    <div className="App">
-        
-        <Nav />
-        <main className="form-signin">
-            <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/register" element={<Register/>}/>
-            </Routes>
+    const [name, setName] = useState('')
+
+    // since useEffect doesn't accept async functions, we have to do it like this
+    useEffect(() => {(
+        async () => {
+            const response = await fetch('http://localhost:8000/api/user', {
+                method: 'GET',
+                credentials: 'include'
+            })
+            const content = await response.json()
+            setName(content.name)
+        }
+    )()})
+
+    return (
+        <div className="App">
             
-        </main>
-    </div>
-  );
+            <Nav name={name}/>
+            <main className="form-signin">
+                <Routes>
+                    <Route path="/" element={<Home name={name}/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/register" element={<Register/>}/>
+                </Routes>
+                
+            </main>
+        </div>
+    );
 }
 
 export default App;

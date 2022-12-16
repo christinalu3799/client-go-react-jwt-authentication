@@ -1,21 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
-const Home = () => {
-    const [name, setName] = useState('')
-    // since useEffect doesn't accept async functions, we have to do it like this
-    useEffect(() => {(
-        async () => {
-            const response = await fetch('http://localhost:8000/api/user', {
-                method: 'GET',
-                credentials: 'include'
-            })
-            const content = await response.json()
-            setName(content.name)
-        }
-
-    )()})
+//                      👇🏼 in TypeScript, we need to define the tope of the props that's being passed in
+const Home = (props: {name: string}) => {
     return (
-        <div>{name ? 'Hi ' + name : 'You are not logged in.'}</div>
+        <div>{props.name ? 'Hi ' + props.name : 'You are not logged in.'}</div>
     )
 }
 
