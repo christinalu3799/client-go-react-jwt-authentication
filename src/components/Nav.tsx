@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { SyntheticEvent } from 'react'
 import { Link } from 'react-router-dom'
 
-const Nav = (props: {name: string}) => {
+const Nav = (props: {name: string, setName: (name: string) => void}) => {
+    const logout = async () => {
+        await fetch('http://localhost:8000/api/logout', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            credentials: 'include'
+        })
+
+        props.setName('')
+    }
+     
     let menu 
 
     // display this if the user is not logged in
-    if (props.name === '') {
+    if (props.name === undefined) {
         menu = (
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
                 <li className="nav-item active">
@@ -20,7 +30,7 @@ const Nav = (props: {name: string}) => {
         menu = (
             <ul className="navbar-nav me-auto mb-2 mb-md-0">
                 <li className="nav-item active">
-                    <Link to="/login" className="nav-link">Logout</Link>
+                    <Link to="/login" className="nav-link" onClick={logout}>Logout</Link>
                 </li>
             </ul>
         )

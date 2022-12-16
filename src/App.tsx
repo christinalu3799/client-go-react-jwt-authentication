@@ -24,11 +24,11 @@ function App() {
     return (
         <div className="App">
             
-            <Nav name={name}/>
+            <Nav name={name} setName={setName}/>
             <main className="form-signin">
                 <Routes>
                     <Route path="/" element={<Home name={name}/>}/>
-                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/login" element={<Login setName={setName}/>}/>
                     <Route path="/register" element={<Register/>}/>
                 </Routes>
                 
