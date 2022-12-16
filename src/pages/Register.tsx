@@ -1,15 +1,17 @@
 import React, { SyntheticEvent, useState } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 const Register = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate()
 
     // in TS, we have to define the type of this event 
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault()
         
-        const response = await fetch('http://localhost:8000/api/register', {
+        await fetch('http://localhost:8000/api/register', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -18,12 +20,10 @@ const Register = () => {
                 password
             })
         })
-        
-        const content = await response.json()
 
-        console.log(content);
-        
+        navigate('/login')
     }
+ 
     return (
         <div>
             <form onSubmit={submit}>
